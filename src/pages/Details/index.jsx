@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom"
 import { api } from "../../services/api";
-import axios from "axios";
 
 import './styles.scss';
 
