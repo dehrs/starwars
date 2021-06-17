@@ -14,18 +14,20 @@ export const Details = () => {
     api.get(`people/${params.id}`).then(res => {
       setStarships([]);
 
-      res.data.starships.map(starship => (
-        axios.get(starship).then(s => {
+      for (let starship of res.data.starships) {
+        let urlStarships = starship.substring(20, starship.length);
+
+        api.get(urlStarships).then(s => {
           let starshipData = {
             ...s.data,
             id: s.data.url.substring(31, 33).replace('/', '')
           }
           setStarships(state => [...state, starshipData])
-        }
-        )
-      ))
+        })
+      }
 
-      axios.get(res.data.homeworld).then(response => {
+      const urlPlanet = res.data.homeworld.substring(20, res.data.homeworld.length)
+      api.get(urlPlanet).then(response => {
         let data = {
           ...res.data,
           planet: response.data.name

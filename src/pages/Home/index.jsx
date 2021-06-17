@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import { FiArrowRight, FiArrowLeft, FiLoader } from 'react-icons/fi'
 
 import { api } from "../../services/api";
-import axios from "axios";
 
 import './styles.scss';
 
@@ -18,14 +17,15 @@ export const Home = () => {
   useEffect(() => {
     api.get('people/').then(res => {
 
-      setUrlPreviousPage(res.data.previus)
-      setUrlNextPage(res.data.next)
+      setUrlPreviousPage(res.data.previous && res.data.previous.substring(20, res.data.previous.length))
+      setUrlNextPage(res.data.next && res.data.next.substring(20, res.data.next.length))
 
       let data = res.data.results.map(result => ({
         ...result,
         id: result.url.substring(28, 30).replace('/', ''),
         gender: result.gender === 'n/a' ? 'unknown' : result.gender
-      }))
+      }));
+
       setCharacters(data)
       setLoading(false);
 
@@ -33,9 +33,9 @@ export const Home = () => {
   }, []);
 
   const handleNextPage = () => {
-    axios.get(urlNextPage).then(res => {
-      setUrlPreviousPage(res.data.previous)
-      setUrlNextPage(res.data.next)
+    api.get(urlNextPage).then(res => {
+      setUrlPreviousPage(res.data.previous && res.data.previous.substring(20, res.data.previous.length))
+      setUrlNextPage(res.data.next && res.data.next.substring(20, res.data.next.length))
 
       let data = res.data.results.map(result => ({
         ...result,
@@ -48,7 +48,7 @@ export const Home = () => {
   }
 
   const handlePreviousPage = () => {
-    axios.get(urlPreviousPage).then(res => {
+    api.get(urlPreviousPage).then(res => {
       setUrlPreviousPage(res.data.previous)
       setUrlNextPage(res.data.next)
 
