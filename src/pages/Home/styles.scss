@@ -1,10 +1,7 @@
-@keyframes loading {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container{
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
 }
 
 @keyframes showCards {
@@ -16,19 +13,6 @@
     opacity:1;
     transform:translateX(0);
   }
-}
-
-
-.loader{
-  animation: loading 2s linear infinite;
-  margin: 30px auto;
-  display: block;
-}
-
-.container{
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 2.5rem 1rem;
 }
 
 .card-container {
@@ -44,7 +28,7 @@
     align-items: center;
     margin: 10px;
     border-radius: 5px;
-    padding: 15px 20px 30px 20px;
+    padding: 15px 20px;
     background-color: #111111;
 
 
@@ -82,23 +66,12 @@
 }
 
 .card-details{
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-
-     span {
-        color: #dee2e6;
-        font-weight: 300;
-        font-size: 14px;
-
-        // & + span {
-        //   margin-left: 20px;
-        // }
-    }
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
 }
+
 
 .button-footer{
   display: flex;

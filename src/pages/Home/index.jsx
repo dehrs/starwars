@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom'
-import { FiArrowRight, FiArrowLeft, FiLoader } from 'react-icons/fi'
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { Loader } from "../../components/Loader";
+import { Caracteristics } from '../../components/Caracteristics';
 
 import { api } from "../../services/api";
+import axios from "axios";
 
 import './styles.scss';
 
@@ -11,50 +14,39 @@ export const Home = () => {
   const [urlPreviousPage, setUrlPreviousPage] = useState(null);
   const [urlNextPage, setUrlNextPage] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const history = useHistory();
 
 
   useEffect(() => {
     api.get('people/').then(res => {
-
-      setUrlPreviousPage(res.data.previous && res.data.previous.substring(20, res.data.previous.length))
-      setUrlNextPage(res.data.next && res.data.next.substring(20, res.data.next.length))
-
-      let data = res.data.results.map(result => ({
-        ...result,
-        id: result.url.substring(28, 30).replace('/', ''),
-        gender: result.gender === 'n/a' ? 'unknown' : result.gender
-      }));
-
-      setCharacters(data)
-      setLoading(false);
-
-    })
-  }, []);
-
-  const handleNextPage = () => {
-    api.get(urlNextPage).then(res => {
-      setUrlPreviousPage(res.data.previous && res.data.previous.substring(20, res.data.previous.length))
-      setUrlNextPage(res.data.next && res.data.next.substring(20, res.data.next.length))
-
-      let data = res.data.results.map(result => ({
-        ...result,
-        id: result.url.substring(28, 30).replace('/', ''),
-        gender: result.gender === 'n/a' ? 'unknown' : result.gender
-      }))
-
-      setCharacters(data)
-    })
-  }
-
-  const handlePreviousPage = () => {
-    api.get(urlPreviousPage).then(res => {
       setUrlPreviousPage(res.data.previous)
       setUrlNextPage(res.data.next)
 
       let data = res.data.results.map(result => ({
         ...result,
-        id: result.url.substring(28, 30).replace('/', ''),
+        id: result.url.substring(29, result.length).replace('/', ''),
+        gender: result.gender === 'n/a' ? 'unknown' : result.gender
+      }));
+      setCharacters(data)
+      setLoading(false);
+
+    }).catch(err => {
+      setLoading(false);
+      history.push('/notfound')
+    })
+
+  }, [history]);
+
+
+  const handleNextPage = (direction) => {
+    axios.get(direction).then(res => {
+      setUrlPreviousPage(res.data.previous)
+      setUrlNextPage(res.data.next)
+
+      let data = res.data.results.map(result => ({
+        ...result,
+        id: result.url.substring(29, result.length).replace('/', ''),
         gender: result.gender === 'n/a' ? 'unknown' : result.gender
       }))
 
@@ -69,7 +61,7 @@ export const Home = () => {
 
   return (
     <>
-      {loading ? (<FiLoader size={30} color="#dee2e6" className="loader" />) : (
+      {loading ? (<Loader />) : (
         <div className="container">
           <div className="grid-3_xs-1 grid-equalHeight">
             {characters.map(character => (
@@ -80,16 +72,15 @@ export const Home = () => {
                       alt={character.name} />
                     <h3> {character.name}</h3>
                     <div className="card-details">
-                      <span> Gender: {character.gender}</span>
-                      <span> Skin Color: {character.skin_color}</span>
+                      <Caracteristics label="Gender" description={character.gender} />
+                      <Caracteristics label="Skin Color" description={character.skin_color} right={true} />
                     </div>
                     <div className="card-details">
-                      <span>Height: {character.height}</span>
-                      <span>Mass: {character.mass}</span>
+                      <Caracteristics label="Height" description={character.height} />
+                      <Caracteristics label="Mass" description={character.mass} right={true} />
                     </div>
 
                     <button type='button' onClick={() => handleDetailsPage(character.id)}>Details</button>
-
                   </div>
                 </div>
               </div>
@@ -98,10 +89,10 @@ export const Home = () => {
           </div>
 
           <div className="button-footer">
-            <button type="button" disabled={!urlPreviousPage} onClick={() => handlePreviousPage()}>
+            <button type="button" disabled={!urlPreviousPage} onClick={() => handleNextPage(urlPreviousPage)}>
               <FiArrowLeft size={20} />
             </button>
-            <button type="button" disabled={!urlNextPage} onClick={() => handleNextPage()}>
+            <button type="button" disabled={!urlNextPage} onClick={() => handleNextPage(urlNextPage)}>
               <FiArrowRight size={20} />
             </button>
           </div>

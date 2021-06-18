@@ -28,9 +28,10 @@
   margin-left: 20px;
   width: 500px;
 
-  p {
-    margin: 20px 0;
-    font-size: 20px;
+  @media (max-width: 768px) {
+    h2 {
+     margin-top: 15px;
+    }
   }
 
 }
@@ -39,12 +40,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
-  span{
-    line-height: 30px;
-    font-weight: 300;
-    color:#dee2e6;
-  }
 }
 
 .details-starships-container {
