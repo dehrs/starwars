@@ -8,6 +8,7 @@ import { api } from "../../services/api";
 import axios from "axios";
 
 import './styles.scss';
+import { Header } from "../../components/Header";
 
 export const Home = () => {
   const [characters, setCharacters] = useState([]);
@@ -61,6 +62,7 @@ export const Home = () => {
 
   return (
     <>
+      <Header />
       {loading ? (<Loader />) : (
         <div className="container">
           <div className="grid-3_xs-1 grid-equalHeight">

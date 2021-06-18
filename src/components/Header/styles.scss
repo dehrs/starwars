@@ -1,0 +1,19 @@
+.header-container{
+  padding: 15px 10px;
+
+  h1 {
+    text-align: center;
+    color: #dee2e6;
+  }
+
+  &::after{
+    content: '';
+    display: block;
+    width: 150px;
+    height: 1px;
+    background-color: #dee2e6;
+    margin-inline:auto;
+    margin-top: 10px;
+  }
+
+}
