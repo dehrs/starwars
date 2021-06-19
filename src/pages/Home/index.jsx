@@ -75,11 +75,11 @@ export const Home = () => {
                     <h3> {character.name}</h3>
                     <div className="card-details">
                       <Caracteristics label="Gender" description={character.gender} />
-                      <Caracteristics label="Skin Color" description={character.skin_color} right={true} />
+                      <Caracteristics label="Skin Color" description={character.skin_color} />
                     </div>
                     <div className="card-details">
                       <Caracteristics label="Height" description={character.height} />
-                      <Caracteristics label="Mass" description={character.mass} right={true} />
+                      <Caracteristics label="Mass" description={character.mass} />
                     </div>
 
                     <button type='button' onClick={() => handleDetailsPage(character.id)}>Details</button>

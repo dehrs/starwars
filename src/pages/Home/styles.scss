@@ -70,6 +70,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
+
+  .details:last-child{
+    text-align: right;
+  }
 }
 
 

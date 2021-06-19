@@ -63,20 +63,21 @@ export const Details = () => {
             <div className="content">
               <div className="details-character">
                 <img src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`} alt="" />
+
                 <div className="description-character">
                   <h2>{character.name}</h2>
 
                   <div className="caracteristics">
                     <Caracteristics label="Gender" description={character.gender} />
-                    <Caracteristics label="Skin Color" description={character.skin_color} right={true} />
+                    <Caracteristics label="Skin Color" description={character.skin_color} />
                   </div>
                   <div className="caracteristics">
                     <Caracteristics label="Height" description={character.height} />
-                    <Caracteristics label="Mass" description={character.mass} right={true} />
+                    <Caracteristics label="Mass" description={character.mass} />
                   </div>
                   <div className="caracteristics">
                     <Caracteristics label="Birth Year" description={character.birth_year} />
-                    <Caracteristics label="Planet" description={character.planet} right={true} />
+                    <Caracteristics label="Planet" description={character.planet} />
                   </div>
                 </div>
               </div>

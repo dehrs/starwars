@@ -1,8 +1,8 @@
 import './styles.scss';
-export const Caracteristics = ({ label, description, right }) => {
+export const Caracteristics = ({ label, description }) => {
   return (
     <>
-      <div className="details" style={{ textAlign: right ? 'right' : 'inherit' }}>
+      <div className="details">
         <strong >{label}</strong>
         <p >{description}</p>
       </div>
