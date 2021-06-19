@@ -51,7 +51,8 @@ export const Home = () => {
         gender: result.gender === 'n/a' ? 'unknown' : result.gender
       }))
 
-      setCharacters(data)
+      setCharacters(data);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     })
   }
 
