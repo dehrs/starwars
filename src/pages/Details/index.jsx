@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useRouteMatch, useHistory, Link } from "react-router-dom"
 import { Caracteristics } from "../../components/Caracteristics";
 import { Loader } from "../../components/Loader";
-import { FiArrowLeft } from 'react-icons/fi'
-
+import { FiArrowLeft } from 'react-icons/fi';
 import { Header } from '../../components/Header'
+
+import notfound from '../../assets/notfound.jpg'
 
 import axios from "axios";
 import { api } from "../../services/api";
@@ -51,6 +52,10 @@ export const Details = () => {
 
   }, [params.id, history])
 
+  const teste = () => {
+    return notfound
+  }
+
   return (
     <>
       <Header />
@@ -62,7 +67,7 @@ export const Details = () => {
             </Link>
             <div className="content">
               <div className="details-character">
-                <img src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`} alt="" />
+                <img src={`https://starwars-visualguide.com/assets/img/characters/${params.id}.jpg`} alt={character.name} />
 
                 <div className="description-character">
                   <h2>{character.name}</h2>
@@ -90,6 +95,7 @@ export const Details = () => {
                       <div className="details-starships-content">
                         <img src={`https://starwars-visualguide.com/assets/img/starships/${starship.id}.jpg`}
                           alt={starship.name}
+                          onError={(e) => { e.target.onError = null; e.target.src = `${notfound}` }}
                         />
                         <span>{starship.name}</span>
                       </div>
