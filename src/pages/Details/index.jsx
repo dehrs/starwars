@@ -52,10 +52,6 @@ export const Details = () => {
 
   }, [params.id, history])
 
-  const teste = () => {
-    return notfound
-  }
-
   return (
     <>
       <Header />
