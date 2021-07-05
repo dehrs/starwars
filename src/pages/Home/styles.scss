@@ -95,7 +95,7 @@
     cursor: pointer;
     transition: filter 0.5s;
 
-    &:hover {
+    &:not(:disabled):hover {
       filter: brightness(0.8);
     }
 
